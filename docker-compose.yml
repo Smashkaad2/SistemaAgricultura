@@ -22,5 +22,19 @@ services:
     depends_on:
       - db
 
+  api:
+    build:
+      context: ./ProductsService.API
+      dockerfile: Docker/Dockerfile
+    ports:
+      - "5206:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=agriculbase;Username=user;Password=userpassword"
+      ASPNETCORE_URLS: "http://+:80"
+    depends_on:
+      - db
+  
+
 volumes:
   postgres-data:

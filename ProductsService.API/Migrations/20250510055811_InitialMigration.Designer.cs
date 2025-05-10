@@ -11,7 +11,7 @@ using ProductsService.API.Models;
 namespace ProductsService.API.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20250510041917_InitialMigration")]
+    [Migration("20250510055811_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
