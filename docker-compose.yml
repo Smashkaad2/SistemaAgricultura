@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: agriculbase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    expose:
+      - "3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_PASSWORD: rootpassword
+    ports:
+      - "8082:80"
+
+
+volumes:
+  mysql-data:

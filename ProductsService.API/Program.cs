@@ -3,13 +3,15 @@ using ProductsService.API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+    "Server=localhost;Port=3309;Database=agriculbase;User=user;Password=userpassword;"; //variable de conexion BDD
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<ProductContext>(opt =>
-    opt.UseInMemoryDatabase("ProductsDB"));
+builder.Services.AddDbContext<ProductContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))); // Configura la conexión a la base de datos MySQL
 
 var app = builder.Build();
 
