@@ -2,29 +2,25 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:5.7
+    image: postgres:16
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: agriculbase
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      POSTGRES_DB: agriculbase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: userpassword
     ports:
-      - "3309:3306"
+      - "5432:5432"
     volumes:
-      - mysql-data:/var/lib/mysql
-    expose:
-      - "3306"
+      - postgres-data:/var/lib/postgresql/data
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
+  pgadmin:
+    image: dpage/pgadmin4
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      MYSQL_PASSWORD: rootpassword
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "8082:80"
-
+    depends_on:
+      - db
 
 volumes:
-  mysql-data:
+  postgres-data:
